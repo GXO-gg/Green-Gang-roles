@@ -1,0 +1,19 @@
+{
+  "name": "role-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot that lets a trusted (non-Administrator) role assign and remove roles via slash commands, without ever touching Administrator-permission roles.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "deploy": "node deploy-commands.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}
