@@ -1,6 +1,4 @@
 require('dotenv').config();
-const fs = require('node:fs');
-const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 
 const { DISCORD_TOKEN, ADMIN_ROLE_IDS, ADMIN_ROLE_ID } = process.env;
@@ -22,15 +20,22 @@ const client = new Client({
 
 client.commands = new Collection();
 
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
+// Every command file lives right here at the project root (no subfolders -
+// keeps things simple to upload/edit). Add a new command by writing a new
+// file here and listing it below.
+const commandModules = [
+  require('./addrole'),
+  require('./removerole'),
+  require('./permitrole'),
+  require('./revokerole'),
+  require('./listpermittedroles'),
+];
 
-for (const file of commandFiles) {
-  const command = require(path.join(commandsPath, file));
+for (const command of commandModules) {
   if (command?.data?.name && typeof command.execute === 'function') {
     client.commands.set(command.data.name, command);
   } else {
-    console.warn(`Skipping ${file}: missing "data" or "execute" export.`);
+    console.warn('Skipping a command module: missing "data" or "execute" export.');
   }
 }
 
