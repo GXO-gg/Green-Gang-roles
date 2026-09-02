@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { isHeadAdmin, getAdminRoleIds } = require('../utils/roleGuard');
+const { isHeadAdmin, getAdminRoleIds } = require('./roleGuard');
 
 module.exports = {
   data: new SlashCommandBuilder()
