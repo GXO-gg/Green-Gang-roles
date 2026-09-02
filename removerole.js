@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { canManageRoles, isRoleSafeToManage } = require('../utils/roleGuard');
+const { canManageRoles, isRoleSafeToManage } = require('./roleGuard');
 
 module.exports = {
   data: new SlashCommandBuilder()
