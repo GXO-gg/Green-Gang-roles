@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { isHeadAdmin } = require('../utils/roleGuard');
-const { removePermittedRole } = require('../utils/permissionStore');
+const { isHeadAdmin } = require('./roleGuard');
+const { removePermittedRole } = require('./permissionStore');
 
 module.exports = {
   data: new SlashCommandBuilder()
