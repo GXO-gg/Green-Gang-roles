@@ -1,8 +1,6 @@
 // Registers (or updates) this bot's slash commands with Discord.
 // Run this once initially, and again any time you add/change a command.
 require('dotenv').config();
-const fs = require('node:fs');
-const path = require('node:path');
 const { REST, Routes } = require('discord.js');
 
 const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID } = process.env;
@@ -12,14 +10,16 @@ if (!DISCORD_TOKEN || !CLIENT_ID) {
   process.exit(1);
 }
 
-const commands = [];
-const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
+// Same list as index.js - every command file lives at the project root.
+const commandModules = [
+  require('./addrole'),
+  require('./removerole'),
+  require('./permitrole'),
+  require('./revokerole'),
+  require('./listpermittedroles'),
+];
 
-for (const file of commandFiles) {
-  const command = require(path.join(commandsPath, file));
-  if (command?.data) commands.push(command.data.toJSON());
-}
+const commands = commandModules.filter((c) => c?.data).map((c) => c.data.toJSON());
 
 const rest = new REST().setToken(DISCORD_TOKEN);
 
